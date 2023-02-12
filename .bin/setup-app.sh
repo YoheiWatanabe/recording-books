@@ -1,3 +1,4 @@
 #!/bin/sh
-cd ./backend/ && source env/bin/activate
-# python -V
+source env/bin/activate
+cd ./backend
+python manage.py runserver
