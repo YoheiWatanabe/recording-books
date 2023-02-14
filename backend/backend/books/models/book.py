@@ -1,4 +1,5 @@
 from django.db import models
+
 from backend.books.models.category import Category
 from backend.books.models.master import Language
 
@@ -30,28 +31,20 @@ class Author(models.Model):
     def __str__(self) -> str:
         return self.first_name + ' ' + self.last_name
 
-
 class BookId(models.Model):
     """A model which deals with special book ids: ISBN and ASIN"""
-    isbn10 = models.CharField(max_length=13, null=True)
-    isbn13 = models.CharField(max_length=17, null=True)
-    asin = models.CharField(max_length=10, null=True, default=None)
+    isbn10 = models.CharField(max_length=13)
+    isbn13 = models.CharField(max_length=17)
+    asin = models.CharField(max_length=10)
 
 
 class Book(models.Model):
     """Book model"""
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    book_id = models.ForeignKey(to=BookId, on_delete=models.PROTECT, related_name='book_id')
-    authors = models.ManyToManyField(to=Author, related_name='authors')
-    title = models.TextField(max_length=500)
-    price = models.ForeignKey(to=Price, on_delete=models.DO_NOTHING)
-    language = models.ForeignKey(to=Language, on_delete=models.DO_NOTHING, related_name='language')
-    publisher = models.CharField(max_length=50)
+    title = models.CharField(max_length=100)
+    author = models.CharField(max_length=50, null=True)
+    isbn = models.CharField(max_length=17, blank=True) 
+    asin = models.CharField(max_length=10, blank=True, null=True)
     published_at = models.DateField()
-    purchase_date = models.DateField(null=True, default=None)
-    category = models.ForeignKey(to=Category, on_delete=models.CASCADE, related_name='category_id')
-    review = models.ForeignKey(to=Review, null=True, default=None, on_delete=models.SET_DEFAULT, related_name='review')
-    finished_reading = models.BooleanField()
-    is_wish = models.BooleanField()
-    is_deleted = models.BooleanField()
+    purchase_date = models.DateField(blank=True, null=True)
+    finished_reading = models.BooleanField(blank=True, default=False)
+    review = models.TextField(blank=True)
