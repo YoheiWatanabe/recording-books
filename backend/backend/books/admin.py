@@ -1,4 +1,5 @@
 from django.contrib import admin
+from backend.books.models.comment import Comment
 from backend.books.models.book import Book
 from backend.books.models.book import BookId
 from backend.books.models.book import Author
@@ -61,6 +62,12 @@ class BookAdmin(admin.ModelAdmin):
                     'category', 'review', 'finished_reading', 'is_wish', 'is_deleted',
                     )
 
+class CommentAdmin(admin.ModelAdmin):
+    """Display Comment model"""
+    model = Comment
+    list_display = ('id', 'text', 'reply_to')
+
+
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(Currency, CurrencyAdmin)
 admin.site.register(Price, PriceAdmin)
@@ -69,3 +76,4 @@ admin.site.register(Review, ReviewAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(BookId, BookIdAdmin)
 admin.site.register(Book, BookAdmin)
+admin.site.register(Comment, CommentAdmin)
