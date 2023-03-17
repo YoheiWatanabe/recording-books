@@ -56,7 +56,10 @@ class BookIdAdmin(admin.ModelAdmin):
 class BookAdmin(admin.ModelAdmin):
     """Display Book model"""
     model = Book
-    list_display = ('id', 'title')
+    list_display = ('id', 'book_id', 'title', 'price',
+                    'language', 'publisher', 'published_at', 'purchase_date',
+                    'category', 'review', 'finished_reading', 'is_wish', 'is_deleted',
+                    )
 
 admin.site.register(Language, LanguageAdmin)
 admin.site.register(Currency, CurrencyAdmin)
