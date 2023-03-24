@@ -1,5 +1,6 @@
 # Serializer
 from rest_framework import serializers
+from backend.books.models.store import Store
 from backend.books.models.book import Book
 
 from backend.books.models.book import BookId
@@ -20,3 +21,26 @@ class BookSerializer(serializers.ModelSerializer):
         """Meta"""
         model = Book
         fields = '__all__'
+
+
+class StoreSerializer(serializers.ModelSerializer):
+    """Store serializer"""
+
+    class Meta:
+        """Meta"""
+        model = Store
+        fields = '__all__'
+
+
+class StoreQuerySerializer(serializers.ModelSerializer):
+    """Store query serializer"""
+
+    class Meta:
+        """Meta"""
+        model = Store
+        fields = ['store-name']
+        extra_kwargs = {
+            'store-name': {
+                'source': 'store_name'
+            }
+        }
